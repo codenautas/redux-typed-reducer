@@ -1,7 +1,9 @@
 {
     "name": "redux-typed-reducer",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Redux with typed dispatch, actions and reducer",
+    "main": "dist/redux-typed-reducer.js",
+    "types": "dist/redux-typed-reducer.d.ts",
     "scripts": {
         "prepare": "tsc",
         "build": "tsc"

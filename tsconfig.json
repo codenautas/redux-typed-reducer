@@ -8,6 +8,7 @@
         "jsx": "react",
         "lib": ["dom", "es5"],
         "typeRoots" : ["node_modules/@types", "node_modules/types.d.ts/modules"],
-        "strict": true
+        "strict": true,
+        "declaration": true
     }
 }
