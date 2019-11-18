@@ -1,0 +1,12 @@
+{
+    "name": "redux-typed-reducer",
+    "version": "0.0.1",
+    "description": "Redux with typed dispatch, actions and reducer",
+    "scripts": {
+        "prepare": "tsc",
+        "build": "tsc"
+    },
+    "dependencies": {
+        "like-ar": "~0.2.17"
+    }
+}
