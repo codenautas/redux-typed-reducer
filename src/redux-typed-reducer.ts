@@ -1,7 +1,11 @@
 import * as likeAr from "like-ar";
 
+export type ActionsFrom<TReducers> = {
+    [K in keyof TReducers]: TReducers[K] extends (payload:infer U) => any ? {payload:U} & {type:K} : {type:K}
+}[keyof TReducers] 
+
 export type ReturnsTheSameThatReceives<T> = {
-    [K in keyof T]: T[K] extends (param:infer U) => any ? (param:U) => U & {type:K} : {type:K}
+    [K in keyof T]: T[K] extends (payload:infer U) => any ? (payload:U) => U & {type:K} : {type:K}
 }
 
 export type Reducer<TState, TPayload> = (payload:TPayload) => ((state:TState) => TState);
@@ -15,12 +19,6 @@ var dispatchOne = function <TState, T, TReducers extends Reducers<TState, T>>(re
     const result = dispatchers[type];
     return result;
 }
-
-export type ActionsFrom2<TState, T, TReducers extends Reducers<TState, T>, TActionName extends keyof TReducers > = TReducers[TActionName];
-
-export type ActionsFrom<TState, T, TReducers extends Reducers<TState, T>> = ReturnsTheSameThatReceives<TReducers>[keyof TReducers];
-
-//    ReturnType<typeof dispatchOne<TState, T, TReducers>() >;
 
 export function createDispatchers<TState, T, TReducers extends Reducers<TState, T>>(reducers:TReducers){
     const dispatcher:ReturnsTheSameThatReceives<TReducers> = 
