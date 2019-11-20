@@ -1,8 +1,8 @@
 import * as likeAr from "like-ar";
 
-export type ActionsFrom<TReducers> = {
-    [K in keyof TReducers]: TReducers[K] extends (payload:infer U) => any ? {payload:U} & {type:K} : {type:K}
-}[keyof TReducers] 
+export type ActionsFrom<TReducers, Name extends string = 'payload'> = {
+    [K in keyof TReducers]: TReducers[K] extends (param1:infer U) => any ? {type:K} & {[x in Name]:U} : {type:K}
+}[keyof TReducers];
 
 export type ReturnsTheSameThatReceives<T> = {
     [K in keyof T]: T[K] extends (payload:infer U) => any ? (payload:U) => U & {type:K} : {type:K}
@@ -30,10 +30,14 @@ export function createDispatchers<TState, T, TReducers extends Reducers<TState, 
     return dispatcher;
 }
 
+//export function createReducer<TState, T, TReducers extends Reducers<TState, T>>(reducers:TReducers, initialState:TState){
 export function createReducer<TState, T, TReducers extends Reducers<TState, T>>(reducers:TReducers, initialState:TState){
-    return function reducerFunction(state:TState = initialState, action: ActionsFrom<TState, T, TReducers>){
+    return function reducerFunction(state:TState = initialState, action: ActionsFrom<TReducers>){
         if(action.type in reducers){
-            return reducers[action.type](action.payload)(state);
+            return reducers[action.type](
+                // @ts-ignore payload debería existir siempre o ser undefined si no hay parámetros de la acción, lo cual no molesta
+                action.payload
+            )(state);
         }
         return {...state};
     }

@@ -1,6 +1,6 @@
 {
     "name": "redux-typed-reducer",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Redux with typed dispatch, actions and reducer",
     "main": "dist/redux-typed-reducer.js",
     "types": "dist/redux-typed-reducer.d.ts",
@@ -9,6 +9,6 @@
         "build": "tsc"
     },
     "dependencies": {
-        "like-ar": "~0.2.17"
+        "like-ar": "~0.2.18"
     }
 }
