@@ -4,20 +4,14 @@ export type ActionsFrom<TReducers, Name extends string = 'payload'> = {
     [K in keyof TReducers]: TReducers[K] extends (param1:infer U) => any ? {type:K} & {[x in Name]:U} : {type:K}
 }[keyof TReducers];
 
-export type ReturnsTheSameThatReceives<T> = {
-    [K in keyof T]: T[K] extends (payload:infer U) => any ? (payload:U) => U & {type:K} : {type:K}
-}
+export type ReturnsTheSameThatReceives<TReducers, Name extends string = 'payload'> = {
+    [K in keyof TReducers]: TReducers[K] extends (param1:infer U) => any ? (param1:U) => {type:K} & {[x in Name]:U} : () => {type:K}
+};
 
 export type Reducer<TState, TPayload> = (payload:TPayload) => ((state:TState) => TState);
 
 export type Reducers<TState, T> = {
     [TActionNames in keyof T] : Reducer<TState, T[TActionNames]>
-}
-
-var dispatchOne = function <TState, T, TReducers extends Reducers<TState, T>>(reducers:TReducers, type:keyof TReducers){
-    const dispatchers = createDispatchers<TState, T, TReducers>(reducers);
-    const result = dispatchers[type];
-    return result;
 }
 
 export function createDispatchers<TState, T, TReducers extends Reducers<TState, T>>(reducers:TReducers){

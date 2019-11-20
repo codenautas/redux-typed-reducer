@@ -1,6 +1,6 @@
 {
     "name": "redux-typed-reducer",
-    "version": "0.0.3",
+    "version": "0.1.0",
     "description": "Redux with typed dispatch, actions and reducer",
     "main": "dist/redux-typed-reducer.js",
     "types": "dist/redux-typed-reducer.d.ts",
